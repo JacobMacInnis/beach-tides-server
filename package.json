@@ -1,0 +1,33 @@
+{
+  "name": "beach-tides-server",
+  "version": "1.0.0",
+  "description": "ocean tides",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JacobMacInnis/beach-tides-server.git"
+  },
+  "keywords": [
+    "ocean",
+    "tides",
+    "beach"
+  ],
+  "author": "Jacob MacInnis",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JacobMacInnis/beach-tides-server/issues"
+  },
+  "homepage": "https://github.com/JacobMacInnis/beach-tides-server#readme",
+  "dependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^4.2.0",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "mocha": "^5.2.0",
+    "mongoose": "^5.2.13",
+    "morgan": "^1.9.0"
+  }
+}

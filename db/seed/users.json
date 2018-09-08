@@ -1,0 +1,16 @@
+[
+  {
+    "_id": "000000000000000000000001",
+    "firstName": "Jacob",
+    "lastName": "MacInnis",
+    "username": "JacobMac",
+    "password": "password"
+  },
+  {
+    "_id": "000000000000000000000002",
+    "firstName": "Uzair",
+    "lastName": "Faisal",
+    "username": "UzairF",
+    "password": "password"
+  }
+]
