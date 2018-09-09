@@ -3,6 +3,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const { PORT, MONGODB_URI } = require('./config');
 
@@ -17,6 +18,8 @@ app.use(morgan(process.env.NODE_ENV === 'development' ? 'dev' : 'common', {
   skip: () => process.env.NODE_ENV === 'test'
 }));
 
+// CORS
+app.use(cors());
 
 //  THIS NEEDS TO BE UPDATED TO GO TO CLIENT DIRECTORY
 // Create a static webserver
