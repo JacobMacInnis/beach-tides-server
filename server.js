@@ -20,7 +20,9 @@ app.use(morgan(process.env.NODE_ENV === 'development' ? 'dev' : 'common', {
 }));
 
 // CORS
+console.log(CLIENT_ORIGIN, 'HEY');
 app.use(cors({ origin: CLIENT_ORIGIN }));
+
 
 //  THIS NEEDS TO BE UPDATED TO GO TO CLIENT DIRECTORY
 // Create a static webserver
