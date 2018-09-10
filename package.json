@@ -29,9 +29,11 @@
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "mocha": "^5.2.0",
+    "moment": "^2.22.2",
     "mongoose": "^5.2.13",
     "morgan": "^1.9.0",
     "request": "^2.88.0",
-    "request-promise": "^4.2.2"
+    "request-promise": "^4.2.2",
+    "unix-timestamp": "^0.2.0"
   }
 }
