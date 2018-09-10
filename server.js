@@ -31,6 +31,9 @@ app.use(express.json());
 app.get('/', (req, res) => res.send('Hello World!'));
 app.use('/users', usersRouter);
 app.use('/api/location', locationRouter);
+app.use('/api', (req, res) => {
+  res.json({ok: true});
+});
 
 // Custom 404 Not Found route handler
 app.use((req, res, next) => {
