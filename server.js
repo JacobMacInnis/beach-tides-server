@@ -4,6 +4,7 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const { CLIENT_ORIGIN } = require('./config');
 
 const { PORT, MONGODB_URI } = require('./config');
 
@@ -19,7 +20,7 @@ app.use(morgan(process.env.NODE_ENV === 'development' ? 'dev' : 'common', {
 }));
 
 // CORS
-app.use(cors());
+app.use(cors({ origin: CLIENT_ORIGIN }));
 
 //  THIS NEEDS TO BE UPDATED TO GO TO CLIENT DIRECTORY
 // Create a static webserver
