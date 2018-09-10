@@ -49,20 +49,10 @@ router.get('/', (req, res, next) => {
     })
     .then(response => {
       response = JSON.parse(response);
-      
       response.lat = lat;
       response.lon = lon;
       response.city = city;
       response.state = state;
-      // let extremes = response.extremes;
-      // let results = {
-      //   lat: lat,
-      //   lon: lon,
-      //   city: city,
-      //   state: state,
-      //   extremes: extremes
-      // };
-      // console.log(response, typeof response);
       res.json(response);
     })
     .catch(err => {
