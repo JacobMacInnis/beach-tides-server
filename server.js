@@ -11,7 +11,7 @@ const usersRouter = require('./routes/users');
 const locationRouter= require('./routes/locations');
 
 // Create an Express application
-const app = express();
+const app = express(); 
 
 // Log all requests. Skip logging during
 app.use(morgan(process.env.NODE_ENV === 'development' ? 'dev' : 'common', {
