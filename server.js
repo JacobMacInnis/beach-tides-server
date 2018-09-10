@@ -20,7 +20,6 @@ app.use(morgan(process.env.NODE_ENV === 'development' ? 'dev' : 'common', {
 }));
 
 // CORS
-console.log(CLIENT_ORIGIN, 'HEY');
 app.use(cors({ origin: CLIENT_ORIGIN }));
 
 
