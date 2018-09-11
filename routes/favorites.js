@@ -1,37 +1,43 @@
 'use strict';
 
 const express = require('express');
+const mongoose = require('mongoose');
 
-const passport = require('passport');
-
-// const jwt = require('jsonwebtoken');
-
-const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = require('../config');
+const Favorite = require('../models/favorite');
 
 const router = express.Router();
 
-// const  = passport.authenticate('local', options);
+const passport = require('passport');
 
-// function createAuthToken (user) {
-//   return jwt.sign({ user}, JWT_SECRET, {
-//     subject: user.username,
-//     expiresIn: JWT_EXPIRY
-//   });
-// }
+// console.log('INCOMING BEFORE AUTHENTICATION');
 
+// // Protect endpoints using JWT Strategy
+router.use('/', passport.authenticate('jwt', { session: false, failWithError: true }));
 
-// router.post('/login', localAuth, function (req, res) {
-//   const authToken = createAuthToken(req.user);
-//   res.json({ authToken });
-// });
+/* ========== GET/READ ALL ITEMS ========== */
+router.get('/', (req, res, next) => {
+  console.log('INCOMING', req.headers, 'FINISHED');
+  const userId = req.user.id;
+  let filter = {};
 
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    const err = new Error('The `userId` is not valid');
+    err.status = 400;
+    return next(err);
+  }
+  filter.userId = userId;
 
-// const jwtAuth = passport.authenticate('jwt', { session: false, failWithError: true });
+  Favorite.find(filter)
+    .sort('name')
+    .then(results => {
+      console.log(results);
+      res.json(results);
+    })
+    .catch(err => {
+      next(err);
+    });
+});
 
-// router.post('/refresh', jwtAuth, (req, res) => {
-//   const authToken = createAuthToken(req.user);
-//   res.json({ authToken });
-// });
 
 
 module.exports = router;

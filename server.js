@@ -4,6 +4,8 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const passport = require('passport');
+const jwtstrategy = require('./passport/jwt');
 
 
 const { CLIENT_ORIGIN } = require('./config');
@@ -41,7 +43,13 @@ app.use('/api/v1', indexRouter);
 app.get('/', (req, res) => res.send('Hello World!'));
 // app.use('/users', usersRouter);
 app.use('/api/location', locationRouter);
-// app.use('/api/favorite', favoritesRouter);
+app.use('/api/favorites', favoritesRouter);
+
+app.get('/api/protected',  (req, res) => {
+  return res.json({
+    data: 'rosebud'
+  });
+});
 
 // Custom 404 Not Found route handler
 app.use((req, res, next) => {

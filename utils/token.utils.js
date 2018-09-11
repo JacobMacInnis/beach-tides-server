@@ -4,8 +4,9 @@ const { JWT_SECRET } = require('./../config');
 
 var createToken = function(auth) {
   return jwt.sign({
-    id: auth.id
-  }, 'my-secret',
+    id: auth.id,
+    email: auth.email
+  }, JWT_SECRET,
   {
     expiresIn: 60 * 120
   });

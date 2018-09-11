@@ -17,14 +17,14 @@ mongoose.connect(MONGODB_URI)
   .then(() => {
     return Promise.all([
       User.insertMany(seedUsers),
-      Favorite.insertMany(seedFavorites)
+      Favorite.insertMany(seedFavorites),
       // Location.insertMany(seedLocations)
     ]);
   })
   .then((results) => {
-    console.log(`Inserted ${results[0].length} Users, ${results[1].length} Favorites, and ${results[2].length} Locations!`);
+    console.log(`Inserted ${results[0].length} Users, ${results[1].length} Favorites`);
   })
   .then(() => mongoose.disconnect())
   .catch(err => {
     console.log(err);
-  })
+  });
