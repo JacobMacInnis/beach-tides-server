@@ -4,12 +4,16 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
+
+
 const { CLIENT_ORIGIN } = require('./config');
+const { PORT, MONGODB_URI, GOOGLE_CLIENT_ID,GOOGLE_CLIENT_SECRET } = require('./config');
 
-const { PORT, MONGODB_URI } = require('./config');
-
+const authRouter = require('./routes/auth');
 const usersRouter = require('./routes/users');
 const locationRouter= require('./routes/locations');
+const favoritesRouter = require('./routes/favorites');
+const indexRouter = require('./routes/index');
 
 // Create an Express application
 const app = express(); 
@@ -20,22 +24,24 @@ app.use(morgan(process.env.NODE_ENV === 'development' ? 'dev' : 'common', {
 }));
 
 // CORS
-app.use(cors({ origin: CLIENT_ORIGIN }));
-
-
-//  THIS NEEDS TO BE UPDATED TO GO TO CLIENT DIRECTORY
-// Create a static webserver
-app.use(express.static('./../client/beech-tides-client/public/index.html'));
+var corsOption = {
+  origin: true,
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  exposedHeaders: ['x-auth-token']
+};
+app.use(cors(corsOption));
 
 // Parse request body
 app.use(express.json());
 
+//auth with google
+// app.get('auth/', authRouter);
+app.use('/api/v1/', indexRouter)
 app.get('/', (req, res) => res.send('Hello World!'));
 app.use('/users', usersRouter);
 app.use('/api/location', locationRouter);
-app.use('/api', (req, res) => {
-  res.json({ok: true});
-});
+app.use('/api/favorite', favoritesRouter);
 
 // Custom 404 Not Found route handler
 app.use((req, res, next) => {

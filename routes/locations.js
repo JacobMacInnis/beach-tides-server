@@ -5,12 +5,12 @@ const request = require('request-promise');
 const timestamp = require('unix-timestamp');
 const moment = require('moment');
 
+const { WORLD_TIDES_KEY } = require('./../config');
+
 const Location = require('../models/location');
 
 
 const router = express.Router();
-
-const worldTidesKey = 'd584b43d-2bd4-40cb-999c-634e60d8202a';
 
 router.get('/', (req, res, next) => {
   const { location, date } = req.query;
@@ -38,9 +38,9 @@ router.get('/', (req, res, next) => {
     })
     .then(() => {
       if (dateParams === '') {
-        WorldTideURL = `https://www.worldtides.info/api?extremes&lat=${lat}&lon=${lon}&key=${worldTidesKey}`;
+        WorldTideURL = `https://www.worldtides.info/api?extremes&lat=${lat}&lon=${lon}&key=${WORLD_TIDES_KEY}`;
       } else {
-        WorldTideURL = `https://www.worldtides.info/api?extremes&lat=${lat}&lon=${lon}&key=${worldTidesKey}${dateParams}`;
+        WorldTideURL = `https://www.worldtides.info/api?extremes&lat=${lat}&lon=${lon}&key=${WORLD_TIDES_KEY}${dateParams}`;
       }
       return request(
         {
