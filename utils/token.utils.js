@@ -1,4 +1,7 @@
 'use strict';
+const jwt = require('jsonwebtoken');
+const { JWT_SECRET } = require('./../config');
+
 var createToken = function(auth) {
   return jwt.sign({
     id: auth.id

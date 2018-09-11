@@ -24,7 +24,7 @@ app.use(morgan(process.env.NODE_ENV === 'development' ? 'dev' : 'common', {
 }));
 
 // CORS
-var corsOption = {
+const corsOption = {
   origin: true,
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
@@ -37,11 +37,11 @@ app.use(express.json());
 
 //auth with google
 // app.get('auth/', authRouter);
-app.use('/api/v1/', indexRouter)
+app.use('/api/v1', indexRouter);
 app.get('/', (req, res) => res.send('Hello World!'));
-app.use('/users', usersRouter);
+// app.use('/users', usersRouter);
 app.use('/api/location', locationRouter);
-app.use('/api/favorite', favoritesRouter);
+// app.use('/api/favorite', favoritesRouter);
 
 // Custom 404 Not Found route handler
 app.use((req, res, next) => {

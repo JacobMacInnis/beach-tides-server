@@ -6,19 +6,19 @@ const { MONGODB_URI } = require('../config');
 
 const User = require('../models/user');
 const Favorite = require('../models/favorite');
-const Location = require('../models/location');
+// const Location = require('../models/location');
 
 const seedUsers = require('../db/seed/users');
 const seedFavorites = require('../db/seed/favorites');
-const seedLocations = require('../db/seed/locations');
+// const seedLocations = require('../db/seed/locations');
 
 mongoose.connect(MONGODB_URI)
   .then(() => mongoose.connection.db.dropDatabase())
   .then(() => {
     return Promise.all([
       User.insertMany(seedUsers),
-      Favorite.insertMany(seedFavorites),
-      Location.insertMany(seedLocations)
+      Favorite.insertMany(seedFavorites)
+      // Location.insertMany(seedLocations)
     ]);
   })
   .then((results) => {
