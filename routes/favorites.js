@@ -23,9 +23,9 @@ router.get('/', (req, res, next) => {
     err.status = 400;
     return next(err);
   }
-  // filter.userId = userId;
+  
+  filter.userId = userId;
   console.log(userId);
-  filter.city = 'Marblehead';
   
   Favorite.find(filter)
     .then(results => {
@@ -33,6 +33,47 @@ router.get('/', (req, res, next) => {
       res.json(results);
     })
     .catch(err => {
+      next(err);
+    });
+});
+
+/* ========== POST/CREATE AN ITEM ========== */
+router.post('/', (req, res, next) => {
+  const { location } = req.body;
+  const userId = req.user.id;
+  /***** Never trust users - validate input *****/
+  if (!location) {
+    const err = new Error('Missing `name` in request body');
+    err.status = 400;
+    return next(err);
+  }
+  // if (typeof location === number) {
+
+  // }
+
+
+  let filter = {};
+  if (location) filter.zip_code = location;
+  let lat, lon, city, state;
+  let dateParams = '';
+
+
+
+
+
+  const newFavorite = { name: name, userId: userId };
+
+  Favorite.create(newFavorite)
+    .then(result => {
+      res.location(`${req.originalUrl}/${result.id}`)
+        .status(201)
+        .json(result);
+    })
+    .catch(err => {
+      if (err.code === 11000) {
+        err = new Error('Folder name already exists');
+        err.status = 400;
+      }
       next(err);
     });
 });
