@@ -16,19 +16,18 @@ router.use('/', passport.authenticate('jwt', { session: false, failWithError: tr
 
 /* ========== GET/READ ALL ITEMS ========== */
 router.get('/', (req, res, next) => {
-  console.log('INCOMING', req.headers, 'FINISHED');
   const userId = req.user.id;
   let filter = {};
-
   if (!mongoose.Types.ObjectId.isValid(userId)) {
     const err = new Error('The `userId` is not valid');
     err.status = 400;
     return next(err);
   }
-  filter.userId = userId;
-
+  // filter.userId = userId;
+  console.log(userId);
+  filter.city = 'Marblehead';
+  
   Favorite.find(filter)
-    .sort('name')
     .then(results => {
       console.log(results);
       res.json(results);

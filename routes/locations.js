@@ -39,6 +39,7 @@ router.get('/', (req, res, next) => {
     .then(() => {
       if (dateParams === '') {
         WorldTideURL = `https://www.worldtides.info/api?extremes&lat=${lat}&lon=${lon}&key=${WORLD_TIDES_KEY}`;
+        console.log(WorldTideURL);
       } else {
         WorldTideURL = `https://www.worldtides.info/api?extremes&lat=${lat}&lon=${lon}&key=${WORLD_TIDES_KEY}${dateParams}`;
       }
@@ -53,6 +54,7 @@ router.get('/', (req, res, next) => {
       response.lon = lon;
       response.city = city;
       response.state = state;
+      response.date = date;
       res.json(response);
     })
     .catch(err => {

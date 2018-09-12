@@ -15,7 +15,7 @@ const jwtStrategy = new JwtStrategy(
     algorithms: ['HS256']
   },
   (payload, done) => {
-    console.log('JWT CALLING', payload);
+    // console.log('JWT CALLING', payload);
     done(null, { id: payload.id, email: payload.id });
   }
 );

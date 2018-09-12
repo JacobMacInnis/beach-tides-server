@@ -62,11 +62,9 @@ module.exports = function () {
 
   UserSchema.statics.upsertGoogleUser = function(accessToken, refreshToken, profile, cb) {
     var that = this;
-    console.log('MANY THINGS', accessToken, refreshToken, profile, cb)
     return this.findOne({
       'googleProvider.id': profile.id
     }, function(err, user) {
-      // console.log(user, 'FINDING USER')
       // no user was found, lets create a new one
       if (!user) {
         var newUser = new that({

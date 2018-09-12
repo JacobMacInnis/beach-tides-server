@@ -1,44 +1,50 @@
 [
   {
     "_id": "333333333333333333333301",
-    "location": "Marblehead",
+    "city": "Marblehead",
+    "state": "Massachusetts",
     "lat": 42.30,
     "lon": -70.51,
     "userId": "000000000000000000000001"
   },
   {
     "_id": "333333333333333333333302",
-    "location": "NewYork",
-    "lat": 42.30,
-    "lon": -70.51,
+    "city": "Holtsville",
+    "state": "NewYork",
+    "lat": 40.92,
+    "lon": -72.63,
     "userId": "000000000000000000000001"
   },
   {
     "_id": "333333333333333333333303",
-    "location": "Florida",
-    "lat": 42.30,
-    "lon": -70.51,
+    "city": "Fernandina Beach",
+    "state": "Florida",
+    "lat": 30.55,
+    "lon": -81.69,
     "userId": "000000000000000000000001"
   },
   {
     "_id": "333333333333333333333304",
-    "location": "California",
-    "lat": 42.30,
-    "lon": -70.51,
+    "city": "Los Angeles",
+    "state": "California",
+    "lat": 33.78,
+    "lon": -118.29,
     "userId": "000000000000000000000002"
   },
   {
     "_id": "333333333333333333333305",
-    "location": "Origon",
-    "lat": 42.30,
-    "lon": -70.51,
+    "city": "Antelope",
+    "state": "Origon",
+    "lat": 45.26,
+    "lon": -121.08,
     "userId": "000000000000000000000002"
   },
   {
     "_id": "333333333333333333333306",
-    "location": "Texas",
-    "lat": 42.30,
-    "lon": -70.51,
+    "city": "Grand Prairie",
+    "state": "Texas",
+    "lat": 32.76,
+    "lon": -96.77,
     "userId": "000000000000000000000002"
   }
 ]
