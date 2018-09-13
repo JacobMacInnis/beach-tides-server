@@ -11,8 +11,6 @@ const jwtstrategy = require('./passport/jwt');
 const { CLIENT_ORIGIN } = require('./config');
 const { PORT, MONGODB_URI, GOOGLE_CLIENT_ID,GOOGLE_CLIENT_SECRET } = require('./config');
 
-const authRouter = require('./routes/auth');
-const usersRouter = require('./routes/users');
 const locationRouter= require('./routes/locations');
 const favoritesRouter = require('./routes/favorites');
 const indexRouter = require('./routes/index');

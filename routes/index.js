@@ -14,7 +14,8 @@ router.route('/auth/facebook')
       return res.send(401, 'User Not Authenticated');
     }
     req.auth = {
-      id: req.user.id
+      id: req.user.id,
+      email: req.user.email
     };
 
     next();
@@ -22,7 +23,6 @@ router.route('/auth/facebook')
 
 router.route('/auth/google')
   .post(passport.authenticate('google-token', {session: false}), function(req, res, next) {
-    // console.log(req, 'REQ');
     if (!req.user) {
       return res.send(401, 'User Not Authenticated');
     }
