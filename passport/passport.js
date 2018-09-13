@@ -24,6 +24,7 @@ module.exports = function () {
     clientSecret: config.googleAuth.clientSecret
   },
   function (accessToken, refreshToken, profile, done) {
+    console.log(accessToken, 'XOXOXOXOXXO',refreshToken, profile.displayName);
     User.upsertGoogleUser(accessToken, refreshToken, profile, function(err, user) {
       return done(err, user);
     });

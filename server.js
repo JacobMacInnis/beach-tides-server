@@ -36,18 +36,12 @@ app.use(cors(corsOption));
 app.use(express.json());
 
 //auth with google
-// app.get('auth/', authRouter);
+
 app.use('/api/v1', indexRouter);
-app.get('/', (req, res) => res.send('Hello World!'));
-// app.use('/users', usersRouter);
+
+
 app.use('/api/location', locationRouter);
 app.use('/api/favorites', favoritesRouter);
-
-app.get('/api/protected',  (req, res) => {
-  return res.json({
-    data: 'rosebud'
-  });
-});
 
 // Custom 404 Not Found route handler
 app.use((req, res, next) => {
