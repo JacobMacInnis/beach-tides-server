@@ -36,9 +36,7 @@ app.use(cors(corsOption));
 app.use(express.json());
 
 //auth with google
-
 app.use('/api/v1', indexRouter);
-
 
 app.use('/api/location', locationRouter);
 app.use('/api/favorites', favoritesRouter);

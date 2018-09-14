@@ -4,24 +4,33 @@ const express = require('express');
 const request = require('request-promise');
 const timestamp = require('unix-timestamp');
 const moment = require('moment');
+var human = require('humanparser');
 
 const { WORLD_TIDES_KEY } = require('./../config');
 
 const Location = require('../models/location');
-
 
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
   const { location, date } = req.query;
   let filter = {};
-  if (location) filter.zip_code = location;
   let lat, lon, city, state;
   let dateParams = '';
-
-  if (!(date === moment().format('YYYY-MM-DD'))) {
-    let futureDate = timestamp.fromDate(date);
-    dateParams = `&start=${futureDate}`;
+  if (!location) {
+    const err = new Error('Missing `location` in request body');
+    err.status = 400;
+    return next(err);
+  }
+  if (/^\d{3,5}$/.test(location)) {
+    filter.zip_code = location;
+  } else {
+    let address = human.parseAddress(location);
+    address.city = address.city[0].toUpperCase() + 
+    address.city.slice(1).toLowerCase();
+    address.state = address.state.toUpperCase();
+    filter.city = address.city;
+    filter.state = address.state;
   }
   let WorldTideURL;
   Location.findOne(filter)

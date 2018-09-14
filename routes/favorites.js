@@ -34,8 +34,9 @@ router.get('/', (req, res, next) => {
   let ids = [];
   let WorldTideURL;
   let favoritesPromises;
-
+  
   Favorite.find(filter)
+    .sort({ createdAt: 'desc' })
     .then(results => {
       if (results === null || undefined) {
         const err = new Error('No favorites were found');
@@ -75,7 +76,7 @@ router.get('/', (req, res, next) => {
 router.post('/', (req, res, next) => {
   const { newFavorite } = req.body;
   const userId = req.user.id;
-  let newLocation = {};
+  let address = {};
   //***** Never trust users - validate input *****/
   if (!newFavorite) {
     const err = new Error('Missing `name` in request body');
@@ -87,25 +88,22 @@ router.post('/', (req, res, next) => {
   }
 
   if (isNumeric(newFavorite) === true) {
-    newLocation.zip_code = newFavorite;
+    address.zip_code = newFavorite;
   } else {
-    let address = human.parseAddress(newFavorite);
-    address.city = address.city[0].toUpperCase() + 
-    address.city.slice(1).toLowerCase();
-    address.state = address.state.toUpperCase();
-    newLocation.city = address.city;
-    newLocation.state = address.state;
+    let city = newFavorite.split(',')[0];
+    let state = newFavorite.split(',')[1];
+    city = city.toLowerCase();
+    city = city[0].toUpperCase() + city.slice(1);
+    address.city = city;
+    state = state.toUpperCase().trim();
+    address.state = state;
   }
-  let lat;
-  let lon;
-  let city;
-  let state;
-  let WorldTideURL;
+  let lat, lon, city, state, WorldTideURL;
   let favoriteSuccess = {
     userId: userId,
   };
 
-  Location.findOne(newLocation)
+  Location.findOne(address)
     .then(location => {
       if (location === null || undefined) {
         const err = new Error('The location was not found');
@@ -148,11 +146,13 @@ router.delete('/:id', (req, res, next) => {
   const userId = req.user.id;
   
   /***** validate id *****/
+  console.log('step 1');
   if (!mongoose.Types.ObjectId.isValid(id)) {
     const err = new Error('The `id` is not valid');
     err.status = 400;
     return next(err);
   }
+  console.log('step 2');
   Favorite.find({ _id: id, userId: userId}).remove()
     .then(() => {
       res.status(204).end();
