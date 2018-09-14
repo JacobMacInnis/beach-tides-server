@@ -1,6 +1,6 @@
 'use strict';
 
-require('./../models/mongoose')();
+require('../models/google-user')();
 var passport = require('passport');
 var User = require('mongoose').model('User');
 var GoogleTokenStrategy = require('passport-google-token').Strategy;
@@ -13,7 +13,6 @@ module.exports = function () {
     clientSecret: config.googleAuth.clientSecret
   },
   function (accessToken, refreshToken, profile, done) {
-    console.log(accessToken, 'XOXOXOXOXXO',refreshToken, profile.displayName);
     User.upsertGoogleUser(accessToken, refreshToken, profile, function(err, user) {
       return done(err, user);
     });

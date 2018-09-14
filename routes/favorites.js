@@ -5,16 +5,13 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 var human = require('humanparser');
 const request = require('request-promise');
+const passport = require('passport');
 
 const Favorite = require('../models/favorite');
 const Location = require('../models/location');
 const { WORLD_TIDES_KEY } = require('./../config');
 
 const router = express.Router();
-
-const passport = require('passport');
-
-// console.log('INCOMING BEFORE AUTHENTICATION');
 
 // // Protect endpoints using JWT Strategy
 router.use('/', passport.authenticate('jwt', { session: false, failWithError: true }));
@@ -36,10 +33,8 @@ router.get('/', (req, res, next) => {
   let states = [];
   let ids = [];
   let WorldTideURL;
-  let favoriteSuccess = {
-  
-  };
   let favoritesPromises;
+
   Favorite.find(filter)
     .then(results => {
       if (results === null || undefined) {
@@ -47,17 +42,14 @@ router.get('/', (req, res, next) => {
         err.status = 404;
         return Promise.reject(err);
       }
-      console.log(results);
       results.forEach(location => {
         cities.push(location.city);
         states.push(location.state);
         ids.push(location._id);
       });
-
       favoritesPromises = results.map((favObj, index) => {
-        
         WorldTideURL = `https://www.worldtides.info/api?extremes&lat=${favObj.lat}&lon=${favObj.lon}&key=${WORLD_TIDES_KEY}`;
-
+        
         return request(
           {
             url: WorldTideURL
@@ -147,16 +139,15 @@ router.post('/', (req, res, next) => {
         .status(201)
         .json(result);
     })
-    .catch(err => {
-      next(err);
-    });
+    .catch(err => next(err));
 });
 
-// /* ========== DELETE/REMOVE A SINGLE ITEM ========== */
+/* ========== DELETE/REMOVE A SINGLE ITEM ========== */
 router.delete('/:id', (req, res, next) => {
   const { id } = req.params;
   const userId = req.user.id;
-  /***** Never trust users - validate input *****/
+  
+  /***** validate id *****/
   if (!mongoose.Types.ObjectId.isValid(id)) {
     const err = new Error('The `id` is not valid');
     err.status = 400;
@@ -166,9 +157,7 @@ router.delete('/:id', (req, res, next) => {
     .then(() => {
       res.status(204).end();
     })
-    .catch(err => {
-      next(err);
-    });
+    .catch(err => next(err));
 });
 
 

@@ -4,7 +4,7 @@ var router = express.Router();
 var { generateToken, sendToken } = require('../utils/token.utils');
 var passport = require('passport');
 var config = require('../config');
-var request = require('request');
+const request = require('request');
 require('../passport/passport')();
 
 router.route('/auth/google')
@@ -16,7 +16,6 @@ router.route('/auth/google')
       id: req.user.id,
       email: req.user.email
     };
-
     next();
   }, generateToken, sendToken);
 
