@@ -25,12 +25,13 @@ router.get('/', (req, res, next) => {
   if (/^\d{3,5}$/.test(location)) {
     filter.zip_code = location;
   } else {
-    let address = human.parseAddress(location);
-    address.city = address.city[0].toUpperCase() + 
-    address.city.slice(1).toLowerCase();
-    address.state = address.state.toUpperCase();
-    filter.city = address.city;
-    filter.state = address.state;
+    let city = location.split(',')[0];
+    let state = location.split(',')[1];
+    city = city.toLowerCase();
+    city = city[0].toUpperCase() + city.slice(1);
+    filter.city = city;
+    state = state.toUpperCase().trim();
+    filter.state = state;
   }
   let WorldTideURL;
   Location.findOne(filter)
