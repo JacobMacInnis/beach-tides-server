@@ -7,13 +7,11 @@ const cors = require('cors');
 const passport = require('passport');
 const jwtstrategy = require('./passport/jwt');
 
-
-const { CLIENT_ORIGIN } = require('./config');
-const { PORT, MONGODB_URI, GOOGLE_CLIENT_ID,GOOGLE_CLIENT_SECRET } = require('./config');
+const { CLIENT_ORIGIN, PORT, MONGODB_URI, GOOGLE_CLIENT_ID,GOOGLE_CLIENT_SECRET } = require('./config');
 
 const locationRouter= require('./routes/locations');
 const favoritesRouter = require('./routes/favorites');
-const indexRouter = require('./routes/index');
+const authRouter = require('./routes/auth');
 
 // Create an Express application
 const app = express(); 
@@ -36,7 +34,7 @@ app.use(cors(corsOption));
 app.use(express.json());
 
 //auth with google
-app.use('/api/v1', indexRouter);
+app.use('/api/v1', authRouter);
 
 app.use('/api/location', locationRouter);
 app.use('/api/favorites', favoritesRouter);
