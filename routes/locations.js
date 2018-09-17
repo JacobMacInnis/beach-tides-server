@@ -22,16 +22,29 @@ router.get('/', (req, res, next) => {
     err.status = 400;
     return next(err);
   }
-  if (/^\d{3,5}$/.test(location)) {
-    filter.zip_code = location;
+  if (/^\d+$/.test(location)) {
+    if (/^\d{3,5}$/.test(location)) {
+      filter.zip_code = location;
+      console.log('is number');
+    } else {
+      const err = new Error('Zip-Code must have minimum 3 digits and maximum 5 digits');
+      err.status = 400;
+      return next(err);
+    }
   } else {
-    let city = location.split(',')[0];
-    let state = location.split(',')[1];
-    city = city.toLowerCase();
-    city = city[0].toUpperCase() + city.slice(1);
-    filter.city = city;
-    state = state.toUpperCase().trim();
-    filter.state = state;
+    if (location.indexOf(',') > -1) {
+      let city = location.split(',')[0];
+      let state = location.split(',')[1];
+      city = city.toLowerCase();
+      city = city[0].toUpperCase() + city.slice(1);
+      filter.city = city;
+      state = state.toUpperCase().trim();
+      filter.state = state;
+    } else {
+      const err = new Error('City and State must be separated by a comma');
+      err.status = 400;
+      return next(err);
+    }
   }
   let WorldTideURL;
   Location.findOne(filter)

@@ -1,12 +1,5 @@
 [
   {
-    "_id": "000000000000000000000001",
-    "firstName": "Bilbo",
-    "email": "jacobcmacinn@gmail.com"
-  },
-  {
-    "_id": "000000000000000000000002",
-    "firstName": "Tiny",
-    "email": "jacobmacinn@gmail.com"
+   "email": "john@gmail.com" 
   }
 ]

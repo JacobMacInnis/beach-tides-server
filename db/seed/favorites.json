@@ -46,5 +46,29 @@
     "lat": 32.76,
     "lon": -96.77,
     "userId": "000000000000000000000002"
+  },
+  {
+    "_id": "333333333333333333333307",
+    "city": "Los Angeles",
+    "state": "California",
+    "lat": 33.78,
+    "lon": -118.29,
+    "userId": "5b9ecbcda8bd1211679d3239"
+  },
+  {
+    "_id": "333333333333333333333308",
+    "city": "Antelope",
+    "state": "Origon",
+    "lat": 45.26,
+    "lon": -121.08,
+    "userId": "5b9ecbcda8bd1211679d3239"
+  },
+  {
+    "_id": "333333333333333333333309",
+    "city": "Grand Prairie",
+    "state": "Texas",
+    "lat": 32.76,
+    "lon": -96.77,
+    "userId": "5b9ecbcda8bd1211679d3239"
   }
 ]
