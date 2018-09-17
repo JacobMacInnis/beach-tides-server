@@ -12,6 +12,7 @@ const { CLIENT_ORIGIN, PORT, MONGODB_URI, GOOGLE_CLIENT_ID,GOOGLE_CLIENT_SECRET 
 const locationRouter= require('./routes/locations');
 const favoritesRouter = require('./routes/favorites');
 const authRouter = require('./routes/auth');
+const userThemeRouter = require('./routes/user-themes');
 
 // Create an Express application
 const app = express(); 
@@ -39,6 +40,7 @@ app.use('/api/v1', authRouter);
 
 app.use('/api/location', locationRouter);
 app.use('/api/favorites', favoritesRouter);
+app.use('/api/user-theme', userThemeRouter);
 
 // Custom 404 Not Found route handler
 app.use((req, res, next) => {

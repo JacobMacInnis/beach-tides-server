@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
   googleProvider: {
     id: String,
     token: String
-  }
+  },
 });
 
 module.exports = mongoose.model('User', userSchema);
