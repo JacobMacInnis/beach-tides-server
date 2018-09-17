@@ -14,9 +14,9 @@ const seedLocations = require('../db/seed/locations');
 const expect = chai.expect;
 chai.use(chaiHttp);
 
-describe('BeachTides API - Locations', function () {
+describe('BeachTides API - Locations', () => {
 
-  before(function () {
+  before(() => {
     return mongoose.connect(TEST_MONGODB_URI)
       .then(() => mongoose.connection.db.dropDatabase());
   });
@@ -24,13 +24,10 @@ describe('BeachTides API - Locations', function () {
     return Location.insertMany(seedLocations);
   });
   afterEach(() => {
-    return mongoose.connection.db.dropDatabase()
-  })
-  after(function () {
-    return mongoose.connection.db.dropDatabase()
-      .then(() => {
-        return mongoose.disconnect();
-      });
+    return mongoose.connection.db.dropDatabase();
+  });
+  after(() => {
+    return mongoose.disconnect();   
   });
 
   describe('GET /api/locations', function () {
