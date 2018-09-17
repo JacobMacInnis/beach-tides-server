@@ -1,0 +1,31 @@
+[
+  {
+    "zip_code": 501,
+    "latitude": 40.922326,
+    "longitude": -72.637078,
+    "city": "Holtsville",
+    "state": "NY"
+  },
+  {
+    "zip_code": 544,
+    "latitude": 40.922326,
+    "longitude": -72.637078,
+    "city": "Holtsville",
+    "state": "NY"
+  },
+  {
+    "zip_code": 1746,
+    "latitude": 42.446396,
+    "longitude": -71.459405,
+    "city": "Holliston",
+    "state": "MA"
+  },
+  {
+    "zip_code": 1945,
+    "latitude": 42.56142,
+    "longitude": -70.770768,
+    "city": "Marblehead",
+    "state": "MA"
+  }
+]
+  
