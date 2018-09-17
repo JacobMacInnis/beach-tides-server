@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "cross-env NODE_ENV=test mocha --file test/server-test.js"
+    "test": "cross-env NODE_ENV=test mocha --file test/server-test.js --exit"
   },
   "repository": {
     "type": "git",
