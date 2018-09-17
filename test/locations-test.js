@@ -9,6 +9,7 @@ const app = require('../server');
 const { TEST_MONGODB_URI } = require('../config');
 
 const Location = require('../models/location');
+const seedLocations = require('../db/seed/locations');
 
 const expect = chai.expect;
 chai.use(chaiHttp);
@@ -16,10 +17,20 @@ chai.use(chaiHttp);
 describe('BeachTides API - Locations', function () {
 
   before(function () {
-    return mongoose.connect(TEST_MONGODB_URI);
+    return mongoose.connect(TEST_MONGODB_URI)
+      .then(() => mongoose.connection.db.dropDatabase());
   });
+  beforeEach(() => {
+    return Location.insertMany(seedLocations);
+  });
+  afterEach(() => {
+    return mongoose.connection.db.dropDatabase()
+  })
   after(function () {
-    return mongoose.disconnect();
+    return mongoose.connection.db.dropDatabase()
+      .then(() => {
+        return mongoose.disconnect();
+      });
   });
 
   describe('GET /api/locations', function () {
