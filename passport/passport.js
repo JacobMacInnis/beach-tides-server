@@ -9,8 +9,8 @@ var config = require('./../config');
 module.exports = function () {
 
   passport.use(new GoogleTokenStrategy({
-    clientID: config.googleAuth.clientID,
-    clientSecret: config.googleAuth.clientSecret
+    clientID: config.GOOGLE_CLIENT_ID,
+    clientSecret: config.GOOGLE_CLIENT_SECRET
   },
   function (accessToken, refreshToken, profile, done) {
     User.upsertGoogleUser(accessToken, refreshToken, profile, function(err, user) {
