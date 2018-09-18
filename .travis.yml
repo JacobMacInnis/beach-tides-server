@@ -8,6 +8,6 @@ deploy:
   provider: heroku
   api_key:
     secure: P8a9+WpV5At6icvaXPat9wwap27DlQ7DNJNN503LqnnOq3d5AsIBpLVj4ISDCKv+Vva+4ckNOoOdhbhcyLC+RDrv/8TomLWDuo1vx7fWEa59sL/hl9HC918i8Mpii1LPlAFzgMAg7+7Q0lAOq0WyxPeDMClcW8+Q/wVomyCrl4b2+ut5JQerxqzmY++yvRYe3EmUurE2n/jtxU5Omj4U8lrMI9K8eKSTaQVPmoj2Q2weRpVzRJsWza+vYVoQ3TY1W7gnpC8g/sqzeyNO4sBpCCnAwuC/C826u6UMuh+gRiEfeQ7qaK4WnaTV3xjuWGOy/TJ/tsfaJTgmxvnfeTv0gJO7naqVSSxzipkp7v/4zvWC1RHOsrHVXMga8o5iuCYkKksOoVtuVqq0iM7QlyG915LypJxKor5kX5Bvldy7/Gcwnsv3TOQmGflnO/tD7IFXI8OWXg+wPczKDJfqmrpfPl2ggBCsHblllMUitqMR4Y6Ld/w1g+jfX82XeC8aw8xBb+PLCpo1Kg3Vh1VoGOYx72n5PnUSOlris0hlleC2AGNINbMTpu1dVHCqtHcETFhvCBaXNmCZxZmuvto943xeVd3AJY0kGs3z9jPagew6qwpCnzBWJLBWoWjgTtGWDSbJM63gA86Jdo8ihFoaV9CvSyywQLbJo8qseyaXfp9Uuzc=
-  app: secret-lowlands-23691
+  app: beachtides-server
   on:
     repo: JacobMacInnis/beach-tides-server
