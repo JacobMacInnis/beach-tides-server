@@ -75,7 +75,6 @@ router.put('/', (req, res, next) => {
         (results.theme === 'night') ? results.theme = 'day' : results.theme = 'night';
         results.save()
           .then(results => {
-            console.log(results);
             res.json(results);
           })
           .catch(err => {

@@ -21,16 +21,16 @@ const seedLocations = require('../db/seed/locations-test');
 const expect = chai.expect;
 chai.use(chaiHttp);
 
-describe('Noteful API - Folders', function () {
+describe('Favorites API - Favorites', function () {
   const userId = '5ba244c3a7973a60aecce1de';
-  const token = 'ya29.GlsdBlQ6Dg2BegB6UX1FoPw7vJPCHw7X2vNrTeo7Asoic2jnGpd6DrS-J2Ceuy3RhEJe7GkuQXTaZWYnchYIesYpRxPBtA1zRnS_uvThHMAd3zdX7qAFJqFRBXsO';
+  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjViYTI0NGMzYTc5NzNhNjBhZWNjZTFkZSIsImVtYWlsIjoidGVzdC5qYWNvYi50ZXN0LmVtYWlsQGdtYWlsLmNvbSIsImlhdCI6MTUzNzM3MDc5MiwiZXhwIjoxNTM3Mzc3OTkyfQ.8JSji8Hi0F1kmC7CoBZsg3vOAVT23j6fes3JXIoMrHc';
   
   const newUser = {
     '_id': '5ba244c3a7973a60aecce1de',
     'email': 'test.jacob.test.email@gmail.com',
     'googleProvider': {
       'id': '116443961616037391911',
-      'token': 'ya29.GlsdBlQ6Dg2BegB6UX1FoPw7vJPCHw7X2vNrTeo7Asoic2jnGpd6DrS-J2Ceuy3RhEJe7GkuQXTaZWYnchYIesYpRxPBtA1zRnS_uvThHMAd3zdX7qAFJqFRBXsO'
+      'token': 'ya29.GlsdBlQ6Dg2BegB6UX1FoPw7vJPCHw7X2vNrTeo7Asoic2jnGpd6DrS-J2Ceuy3RhEJe7GkuQXTaZWYnchYIesYpRxPBtA1zRnS_uvThHMAd3zdX7qAFJqFRBXsO',
     } 
   };
 
@@ -71,7 +71,6 @@ describe('Noteful API - Folders', function () {
           expect(res.body).to.have.length(data.length);
         });
     });
-
     it('should return a list with the correct fields and values', function () {
       const dbPromise = Favorite.find({ userId: userId });
       const apiPromise = chai.request(app)

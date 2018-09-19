@@ -26,6 +26,27 @@
     "longitude": -70.770768,
     "city": "Marblehead",
     "state": "MA"
+  },
+  {
+    "zip_code": 90004,
+    "latitude": 33.786594,
+    "longitude": -118.298662,
+    "city": "Los Angeles",
+    "state": "CA"
+  },
+  {
+    "zip_code": 95843,
+    "latitude": 38.716091,
+    "longitude": -121.366613,
+    "city": "Antelope",
+    "state": "CA"
+  },
+  {
+    "zip_code": 97001,
+    "latitude": 45.263301,
+    "longitude": -121.088513,
+    "city": "Antelope",
+    "state": "OR"
   }
 ]
   
