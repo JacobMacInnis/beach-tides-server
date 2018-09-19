@@ -1,5 +1,10 @@
 [
   {
-   "email": "john@gmail.com" 
+    "_id": "5ba244c3a7973a60aecce1de",
+    "email": "test.jacob.test.email@gmail.com",
+    "googleProvider": {
+      "id": "116443961616037391911",
+      "token": "ya29.GlsdBlQ6Dg2BegB6UX1FoPw7vJPCHw7X2vNrTeo7Asoic2jnGpd6DrS-J2Ceuy3RhEJe7GkuQXTaZWYnchYIesYpRxPBtA1zRnS_uvThHMAd3zdX7qAFJqFRBXsO"
+    } 
   }
 ]

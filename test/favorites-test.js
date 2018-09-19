@@ -14,35 +14,35 @@
 // const Favorite = require('../models/favorite');
 // const seedFavorites = require('../db/seed/favorites');
 // const User = require('../models/google-user');
-// const seedUsers = require('../db/seed/users'); 
+// const seedUsers = require('../db/seed/users');
+// const Location = require('../models/location');
+// const seedLocations = require('../db/seed/locations-test');
 
 // const expect = chai.expect;
 // chai.use(chaiHttp);
 
-// // {
-// //   "_id": "5b9ecbcda8bd1211679d3239",
-// //   "email": "jacobcmacinnis82@gmail.com",
-// //   "googleProvider": {
-// //     "id": "110253780833251555972",
-// //     "token": "ya29.GlwaBskjWT4moA4dbt9LxH31Yn3FOBaSflp1mqcbPyBnxHcQvEs9X6nX7fM3cLSkSnLGim1lPy9VSi8H7Dm-RfMMlMnidZGmThXox9Dtgy8WMePA8ZuAs-0JHQkZPg"
-// //   }
-// // }
-// let token = 'ya29.GlwaBskjWT4moA4dbt9LxH31Yn3FOBaSflp1mqcbPyBnxHcQvEs9X6nX7fM3cLSkSnLGim1lPy9VSi8H7Dm-RfMMlMnidZGmThXox9Dtgy8WMePA8ZuAs-0JHQkZPg';
-// let userId = '5b9ecbcda8bd1211679d3239';
-
 // describe('Noteful API - Folders', function () {
+//   const userId = '5ba244c3a7973a60aecce1de';
+//   const token = 'ya29.GlsdBlQ6Dg2BegB6UX1FoPw7vJPCHw7X2vNrTeo7Asoic2jnGpd6DrS-J2Ceuy3RhEJe7GkuQXTaZWYnchYIesYpRxPBtA1zRnS_uvThHMAd3zdX7qAFJqFRBXsO';
+  
+//   const newUser = {
+//     '_id': '5ba244c3a7973a60aecce1de',
+//     'email': 'test.jacob.test.email@gmail.com',
+//     'googleProvider': {
+//       'id': '116443961616037391911',
+//       'token': 'ya29.GlsdBlQ6Dg2BegB6UX1FoPw7vJPCHw7X2vNrTeo7Asoic2jnGpd6DrS-J2Ceuy3RhEJe7GkuQXTaZWYnchYIesYpRxPBtA1zRnS_uvThHMAd3zdX7qAFJqFRBXsO'
+//     } 
+//   };
 
 //   before(function () {
 //     return mongoose.connect(TEST_MONGODB_URI)
 //       .then(() => mongoose.connection.db.dropDatabase());
 //   });
-  
-
 //   beforeEach(function () {
 //     return Promise.all([
-//       User.insertMany(seedUsers),
+//       User.create(newUser),
 //       Favorite.insertMany(seedFavorites),
-//       // Favorite.createIndexes()
+//       Location.insertMany(seedLocations)
 //     ]);
 //   });
 
