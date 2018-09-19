@@ -2,7 +2,7 @@
 
 require('../models/google-user')();
 var passport = require('passport');
-var User = require('mongoose').model('User');
+var User = require('./../models/google-user');
 var GoogleTokenStrategy = require('passport-google-token').Strategy;
 var config = require('./../config');
 
