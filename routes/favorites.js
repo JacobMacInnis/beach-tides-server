@@ -76,34 +76,44 @@ router.get('/', (req, res, next) => {
 router.post('/', (req, res, next) => {
   const { newFavorite } = req.body;
   const userId = req.user.id;
-  let address = {};
+  let filter = {};
   //***** Never trust users - validate input *****/
+ 
   if (!newFavorite) {
-    const err = new Error('Missing `name` in request body');
+    const err = new Error('Missing `location` in request body');
     err.status = 400;
     return next(err);
   }
-  function isNumeric(value) {
-    return /^-{0,1}\d+$/.test(value);
+  if (/^\d+$/.test(newFavorite)) {
+    if (/^\d{3,5}$/.test(newFavorite)) {
+      filter.zip_code = newFavorite;
+    } else {
+      const err = new Error('Zip-Code must have minimum 3 digits and maximum 5 digits');
+      err.status = 400;
+      return next(err);
+    }
   }
-
-  if (isNumeric(newFavorite) === true) {
-    address.zip_code = newFavorite;
-  } else {
-    let city = newFavorite.split(',')[0];
-    let state = newFavorite.split(',')[1];
-    city = city.toLowerCase();
-    city = city[0].toUpperCase() + city.slice(1);
-    address.city = city;
-    state = state.toUpperCase().trim();
-    address.state = state;
+  else {
+    if (newFavorite.indexOf(',') > -1) {
+      let city = newFavorite.split(',')[0];
+      let state = newFavorite.split(',')[1];
+      city = city.toLowerCase();
+      city = city[0].toUpperCase() + city.slice(1);
+      filter.city = city;
+      state = state.toUpperCase().trim();
+      filter.state = state;
+    } else {
+      const err = new Error('City and State must be separated by a comma');
+      err.status = 400;
+      return next(err);
+    }
   }
   let lat, lon, city, state, WorldTideURL;
   let favoriteSuccess = {
     userId: userId,
   };
 
-  Location.findOne(address)
+  Location.findOne(filter)
     .then(location => {
       if (location === null || undefined) {
         const err = new Error('The location was not found');
