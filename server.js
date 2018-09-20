@@ -1,6 +1,7 @@
 'use strict';
 
 const express = require('express');
+const secure = require('express-force-https');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -16,6 +17,9 @@ const userThemeRouter = require('./routes/user-themes');
 
 // Create an Express application
 const app = express(); 
+
+// Express middleware to redirect all http requests to https
+app.use(secure);
 
 // Log all requests. Skip logging during
 app.use(morgan(process.env.NODE_ENV === 'development' ? 'dev' : 'common', {
