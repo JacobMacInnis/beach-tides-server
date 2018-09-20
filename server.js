@@ -18,8 +18,10 @@ const userThemeRouter = require('./routes/user-themes');
 // Create an Express application
 const app = express(); 
 
-// Express middleware to redirect all http requests to https
-app.use(secure);
+// Express middleware to redirect all http requests to https 
+if (process.env.NODE_ENV === 'start') {
+  app.use(secure);
+}
 
 // Log all requests. Skip logging during
 app.use(morgan(process.env.NODE_ENV === 'development' ? 'dev' : 'common', {
