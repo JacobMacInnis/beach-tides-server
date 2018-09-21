@@ -23,7 +23,8 @@
 
 // describe('Favorites API - Favorites', function () {
 //   const userId = '5ba244c3a7973a60aecce1de';
-//   const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjViYTI0NGMzYTc5NzNhNjBhZWNjZTFkZSIsImVtYWlsIjoidGVzdC5qYWNvYi50ZXN0LmVtYWlsQGdtYWlsLmNvbSIsImlhdCI6MTUzNzM5ODM2NSwiZXhwIjoxNTM3NDA1NTY1fQ.n_RPNzZ130i7iBOu_Syl5GEax4b-dPgP0b0xcodr5f4';
+//   const responseToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjViYTI0NGMzYTc5NzNhNjBhZWNjZTFkZSIsImVtYWlsIjoidGVzdC5qYWNvYi50ZXN0LmVtYWlsQGdtYWlsLmNvbSIsImlhdCI6MTUzNzQ2NDc0OSwiZXhwIjoxNTM3NDcxOTQ5fQ.CLuWSBlOAJbaCv2qBIKu6b_nTw4BIdt5rqhYPyfIjqs';
+//   // const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjViYTI0NGMzYTc5NzNhNjBhZWNjZTFkZSIsImVtYWlsIjoidGVzdC5qYWNvYi50ZXN0LmVtYWlsQGdtYWlsLmNvbSIsImlhdCI6MTUzNzM5ODM2NSwiZXhwIjoxNTM3NDA1NTY1fQ.n_RPNzZ130i7iBOu_Syl5GEax4b-dPgP0b0xcodr5f4';
 //   const newUser = {
 //     '_id': '5ba244c3a7973a60aecce1de',
 //     'email': 'test.jacob.test.email@gmail.com',
@@ -59,7 +60,7 @@
 //         Favorite.find({ userId: userId })
 //           .sort({ createdAt: 'desc' }),
 //         chai.request(app).get('/api/favorites')
-//           .set('Authorization', `Bearer ${token}`)
+//           .set('Authorization', `Bearer ${responseToken}`)
 //       ])
 //         .then(([data, res]) => {
 //           expect(res).to.have.status(200);
