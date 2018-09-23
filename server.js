@@ -19,7 +19,7 @@ const userThemeRouter = require('./routes/user-themes');
 const app = express(); 
 
 // Express middleware to redirect all http requests to https 
-if (process.env.NODE_ENV === 'start') {
+if (process.env.NODE_ENV !== 'test') {
   app.use(secure);
 }
 
