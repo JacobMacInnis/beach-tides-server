@@ -7,9 +7,11 @@ var human = require('humanparser');
 const request = require('request-promise');
 const passport = require('passport');
 
+const { WORLD_TIDES_KEY } = require('./../config');
+
 const Favorite = require('../models/favorite');
 const Location = require('../models/location');
-const { WORLD_TIDES_KEY } = require('./../config');
+const states = require('./../utils/states');
 
 const router = express.Router();
 
@@ -78,15 +80,15 @@ router.post('/', (req, res, next) => {
   const userId = req.user.id;
   let filter = {};
   //***** Never trust users - validate input *****/
- 
-  if (!newFavorite) {
+  let location = newFavorite; 
+  if (!location) {
     const err = new Error('Missing `location` in request body');
     err.status = 400;
     return next(err);
   }
-  if (/^\d+$/.test(newFavorite)) {
-    if (/^\d{3,5}$/.test(newFavorite)) {
-      filter.zip_code = newFavorite;
+  if (/^\d+$/.test(location)) {
+    if (/^\d{3,5}$/.test(location)) {
+      filter.zip_code = location;
     } else {
       const err = new Error('Zip-Code must have minimum 3 digits and maximum 5 digits');
       err.status = 400;
@@ -94,14 +96,28 @@ router.post('/', (req, res, next) => {
     }
   }
   else {
-    if (newFavorite.indexOf(',') > -1) {
-      let city = newFavorite.split(',')[0];
-      let state = newFavorite.split(',')[1];
-      city = city.toLowerCase();
-      city = city[0].toUpperCase() + city.slice(1);
+    if (location.indexOf(',') > -1) {
+      let city = location.split(',')[0].trim();
+      let state = location.split(',')[1].trim();
+      city = city.toLowerCase()
+        .split(' ')
+        .map(letters => letters.charAt(0).toUpperCase() + letters.substring(1))
+        .join(' ');
       filter.city = city;
-      state = state.toUpperCase().trim();
-      filter.state = state;
+      if (state.length > 2) {
+        state = state.toLowerCase();
+        if(states.hasOwnProperty(state)) {
+          state = states[state];
+          filter.state = state;
+        } else {
+          const err = new Error('State can not be found');
+          err.status = 400;
+          return next(err);
+        }
+      } else {
+        state = state.toUpperCase().trim();
+        filter.state = state;
+      } 
     } else {
       const err = new Error('City and State must be separated by a comma');
       err.status = 400;

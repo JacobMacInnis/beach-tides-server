@@ -9,6 +9,7 @@ var human = require('humanparser');
 const { WORLD_TIDES_KEY } = require('./../config');
 
 const Location = require('../models/location');
+const states = require('./../utils/states');
 
 const router = express.Router();
 
@@ -25,7 +26,6 @@ router.get('/', (req, res, next) => {
   if (/^\d+$/.test(location)) {
     if (/^\d{3,5}$/.test(location)) {
       filter.zip_code = location;
-      console.log('is number');
     } else {
       const err = new Error('Zip-Code must have minimum 3 digits and maximum 5 digits');
       err.status = 400;
@@ -33,13 +33,27 @@ router.get('/', (req, res, next) => {
     }
   } else {
     if (location.indexOf(',') > -1) {
-      let city = location.split(',')[0];
-      let state = location.split(',')[1];
-      city = city.toLowerCase();
-      city = city[0].toUpperCase() + city.slice(1);
+      let city = location.split(',')[0].trim();
+      let state = location.split(',')[1].trim();
+      city = city.toLowerCase()
+        .split(' ')
+        .map(letters => letters.charAt(0).toUpperCase() + letters.substring(1))
+        .join(' ');
       filter.city = city;
-      state = state.toUpperCase().trim();
-      filter.state = state;
+      if (state.length > 2) {
+        state = state.toLowerCase();
+        if (states.hasOwnProperty(state)) {
+          state = states[state];
+          filter.state = state;
+        } else {
+          const err = new Error('State can not be found');
+          err.status = 400;
+          return next(err);
+        }
+      } else {
+        state = state.toUpperCase().trim();
+        filter.state = state;
+      }
     } else {
       const err = new Error('City and State must be separated by a comma');
       err.status = 400;
