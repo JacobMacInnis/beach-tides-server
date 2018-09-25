@@ -34,6 +34,7 @@ app.use(cors(corsOption));
 // Parse request body
 app.use(express.json());
 
+app.get('/api/test', (req, res) => res.send('Hello World!'));
 // app.use(express.static('./../beach-tides-client/public/index.html'));
 //auth with google
 app.use('/api/v1', authRouter);
