@@ -1,7 +1,6 @@
 'use strict';
 
 const express = require('express');
-const secure = require('express-force-https');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
