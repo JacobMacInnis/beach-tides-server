@@ -183,8 +183,8 @@ describe('BeachTides API - Locations', () => {
         .request(app)
         .get(`/api/location/?location=${badCityState}`)
         .then(res => {
-          expect(res).to.have.status(404);
-          expect(res.body.message).to.equal('The location was not found');
+          expect(res).to.have.status(400);
+          expect(res.body.message).to.equal('State can not be found');
         });
     });
   });
