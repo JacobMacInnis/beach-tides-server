@@ -10,10 +10,8 @@ module.exports = function () {
   var GoogleTokenStrategy;
   if ( process.env.NODE_ENV === 'test' ) {
     GoogleTokenStrategy = require('passport-mocked').Strategy;
-    console.log('IF', GoogleTokenStrategy);
   }  else {
     GoogleTokenStrategy = require('passport-google-token').Strategy;
-    console.log('ELSE', GoogleTokenStrategy);
   }
   passport.use(new GoogleTokenStrategy({
     clientID: config.GOOGLE_CLIENT_ID,

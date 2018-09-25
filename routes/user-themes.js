@@ -30,42 +30,14 @@ router.get('/', (req, res, next) => {
     });
 });
 
-
-// /* ========== POST NEW THEME ========== */
-// router.post('/', (req, res, next) => {
-//   const userId = req.user.id;
-//   const setNewTheme = {
-//     userId,
-//     theme: 'night'
-//   };
-  
-//   UserTheme.create()  
-//     .then(result => {
-//       console.log(result);
-//       res.location(`${req.originalUrl}/${result.id}`)
-//         .status(201)
-//         .json(result);
-//     })
-//     .catch(err => next(err));
-// });
-
 /* ========== PUT THEME CHANGE ========== */
 router.put('/', (req, res, next) => {
-  const { theme } = req.body;
   const userId = req.user.id;
-  
-  /***** Never trust users - validate input *****/
-  // if (!theme) {
-  //   const err = new Error('Missing `theme` in request body');
-  //   err.status = 400;
-  //   return next(err);
-  // }
   UserTheme.findOne({userId})
     .then(results => { 
       if (!results) {
         UserTheme.create({userId, theme: 'night'})
           .then(results => {
-            console.log(results);
             res.json(results);
           })
           .catch(err => {
@@ -83,14 +55,5 @@ router.put('/', (req, res, next) => {
       }
     });
 });
-//     .then(result => {
-//       console.log(result, 'Result');
-//       res.location(`${req.originalUrl}/${result.id}`)
-//         .status(201)
-//         .json(result);
-//     })
-    
-//     .catch(err => next(err));
-// });
 
 module.exports = router;
