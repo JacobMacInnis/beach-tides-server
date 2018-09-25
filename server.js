@@ -4,6 +4,7 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const secure = require('express-force-https');
 const passport = require('passport');
 const jwtstrategy = require('./passport/jwt');
 
@@ -16,6 +17,11 @@ const userThemeRouter = require('./routes/user-themes');
 
 // Create an Express application
 const app = express(); 
+
+// Express middleware to redirect all http requests to https
+if (process.env.NODE_ENV !== 'test') {
+  app.use(secure);
+}
 
 // Log all requests. Skip logging during
 app.use(morgan(process.env.NODE_ENV === 'development' ? 'dev' : 'common', {
