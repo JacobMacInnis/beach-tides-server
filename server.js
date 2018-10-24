@@ -49,14 +49,14 @@ app.use('/api/location', locationRouter);
 app.use('/api/favorites', favoritesRouter);
 app.use('/api/user-theme', userThemeRouter);
 
-// Custom 404 Not Found route handler
+/*=== Custom 404 Not Found route handler ===*/
 app.use((req, res, next) => {
   const err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
-// Custom Error Handler
+/*===== Custom Error Handler ===*/
 app.use((err, req, res, next) => {
   if (err.status) {
     const errBody = Object.assign({}, err, { message: err.message });
@@ -67,7 +67,7 @@ app.use((err, req, res, next) => {
   }
 });
 
-// Connect to DB and Listen for incoming connections
+/*===Connect to DB and Listen for incoming connections==*/
 
 if (process.env.NODE_ENV !== 'test') {
 
@@ -90,4 +90,5 @@ if (process.env.NODE_ENV !== 'test') {
     });
 }
 
-module.exports = app; // Export for testing
+/*===== Export for testing =====*/
+module.exports = app;
