@@ -1,5 +1,5 @@
 'use strict';
-
+const _ = require('lodash');
 const express = require('express');
 const request = require('request-promise');
 const timestamp = require('unix-timestamp');
@@ -9,11 +9,12 @@ var human = require('humanparser');
 const { WORLD_TIDES_KEY } = require('./../config');
 
 const Location = require('../models/location');
+const DailyTides = require('../models/dailyTides');
 const states = require('./../utils/states');
 
 const router = express.Router();
 
-router.get('/', (req, res, next) => {
+router.get('/', async (req, res, next) => {
   const { location, date } = req.query;
   let filter = {};
   let lat, lon, city, state;
@@ -60,42 +61,57 @@ router.get('/', (req, res, next) => {
       return next(err);
     }
   }
+
   let WorldTideURL;
-  Location.findOne(filter)
-    .then(location => {
-      if (location === null || undefined) {
-        const err = new Error('The location was not found');
-        err.status = 404;
-        return Promise.reject(err);
+  try {
+    const location =  await Location.findOne(filter)
+
+    if (location === null || undefined) {
+      const err = new Error('The location was not found');
+      err.status = 404;
+      return Promise.reject(err);
+    }
+
+    lat = location.latitude;
+    lon = location.longitude;
+    city = location.city;
+    state = location.state;
+
+    if (moment().format('MM DD YYYY') === date) {
+      const tides = await DailyTides.findOne({ date, city, state });
+              
+      if (tides) {
+        let response = {
+          date: tides.date,
+          city: tides.city,
+          state: tides.state,
+          tideDate: tides.tideData
+        }
+        return res.json(response);
       }
-      lat = location.latitude;
-      lon = location.longitude;
-      city = location.city;
-      state = location.state;
-    })
-    .then(() => {
-      if (dateParams === '') {
-        WorldTideURL = `https://www.worldtides.info/api?extremes&lat=${lat}&lon=${lon}&key=${WORLD_TIDES_KEY}`;
-      } else {
-        WorldTideURL = `https://www.worldtides.info/api?extremes&lat=${lat}&lon=${lon}&key=${WORLD_TIDES_KEY}${dateParams}`;
+
+      WorldTideURL = `https://www.worldtides.info/api?extremes&lat=${lat}&lon=${lon}&key=${WORLD_TIDES_KEY}${dateParams}`;
+      let tideResponse = await request({ url: WorldTideURL});
+    
+      if (tideResponse) {
+        tideResponse = JSON.parse(tideResponse);
+        const tideData = {
+          date,
+          city,
+          state,
+          tideData: tideResponse.extremes
+        }
+        
+        const saveTides = await DailyTides.create(tideData);
+
+        if (saveTides) {
+          return res.json(tideData);
+        }
       }
-      return request(
-        {
-          url: WorldTideURL
-        });
-    })
-    .then(response => {
-      response = JSON.parse(response);
-      response.lat = lat;
-      response.lon = lon;
-      response.city = city;
-      response.state = state;
-      response.date = date;
-      res.json(response);
-    })
-    .catch(err => {
-      next(err);
-    });
+    }
+  } catch (e) {
+    return next(e);
+  }
 });
 
 module.exports = router;
