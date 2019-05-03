@@ -81,11 +81,12 @@ router.get('/', async (req, res, next) => {
       const tides = await DailyTides.findOne({ date, city, state });
               
       if (tides) {
-        let response = {
+        const  tideData = JSON.parse(JSON.stringify(tides.tideData));
+        const response = {
           date: tides.date,
           city: tides.city,
           state: tides.state,
-          tideDate: tides.tideData
+          tideData
         }
         return res.json(response);
       }
@@ -95,17 +96,17 @@ router.get('/', async (req, res, next) => {
     
       if (tideResponse) {
         tideResponse = JSON.parse(tideResponse);
-        const tideData = {
+        const worldTides = {
           date,
           city,
           state,
           tideData: tideResponse.extremes
         }
         
-        const saveTides = await DailyTides.create(tideData);
+        const saveTides = await DailyTides.create(worldTides);
 
         if (saveTides) {
-          return res.json(tideData);
+          return res.json(worldTides);
         }
       }
     }
