@@ -61,11 +61,11 @@ router.get('/', async (req, res, next) => {
       return next(err);
     }
   }
-
+  
   let WorldTideURL;
   try {
     const location =  await Location.findOne(filter)
-
+    
     if (location === null || undefined) {
       const err = new Error('The location was not found');
       err.status = 404;
@@ -76,10 +76,11 @@ router.get('/', async (req, res, next) => {
     lon = location.longitude;
     city = location.city;
     state = location.state;
-
+    
     if (moment().format('MM DD YYYY') === date) {
+      
       const tides = await DailyTides.findOne({ date, city, state });
-              
+    
       if (tides) {
         const  tideData = JSON.parse(JSON.stringify(tides.tideData));
         const response = {
@@ -90,24 +91,29 @@ router.get('/', async (req, res, next) => {
         }
         return res.json(response);
       }
-
-      WorldTideURL = `https://www.worldtides.info/api?extremes&lat=${lat}&lon=${lon}&key=${WORLD_TIDES_KEY}${dateParams}`;
-      let tideResponse = await request({ url: WorldTideURL});
+    }
     
-      if (tideResponse) {
-        tideResponse = JSON.parse(tideResponse);
-        const worldTides = {
-          date,
-          city,
-          state,
-          tideData: tideResponse.extremes
-        }
+    WorldTideURL = `https://www.worldtides.info/api?extremes&lat=${lat}&lon=${lon}&key=${WORLD_TIDES_KEY}${dateParams}`;
+      
+    let tideResponse = await request({ url: WorldTideURL});
+    console.log(tideResponse);
+    if (tideResponse) {
+      tideResponse = JSON.parse(tideResponse);
+      const worldTides = {
+        date,
+        city,
+        state,
+        tideData: tideResponse.extremes
+      }
+      if (dateParams !== '') {
         
         const saveTides = await DailyTides.create(worldTides);
-
+        
         if (saveTides) {
           return res.json(worldTides);
         }
+      } else {
+        return res.json(worldTides);
       }
     }
   } catch (e) {
