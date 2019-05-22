@@ -17,7 +17,7 @@ const router = express.Router();
 router.get('/', async (req, res, next) => {
   const { location, date } = req.query;
   let filter = {};
-  let lat, lon, city, state;
+  let lat, lon, city, state, zip_code;
   let dateParams = '';
   if (!location) {
     const err = new Error('Missing `location` in request body');
@@ -76,6 +76,7 @@ router.get('/', async (req, res, next) => {
     lon = location.longitude;
     city = location.city;
     state = location.state;
+    zip_code = location.zip_code;
     
     if (moment().format('MM DD YYYY') === date) {
       
@@ -103,6 +104,7 @@ router.get('/', async (req, res, next) => {
         date,
         city,
         state,
+        zip_code,
         tideData: tideResponse.extremes
       }
       if (dateParams !== '') {
