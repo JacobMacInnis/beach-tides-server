@@ -76,7 +76,7 @@ router.get('/', async (req, res, next) => {
     lon = location.longitude;
     city = location.city;
     state = location.state;
-    zip_code = location.zip_code;
+    zip_code = makeZip(location.zip_code);
     
     if (moment().format('MM DD YYYY') === date) {
       
@@ -124,3 +124,11 @@ router.get('/', async (req, res, next) => {
 });
 
 module.exports = router;
+
+function makeZip(zip) {
+  let stringZip = zip.toString();
+  while (stringZip.length < 5) {
+    stringZip = '0' + stringZip;
+  }
+  return stringZip;
+} 
