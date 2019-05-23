@@ -69,7 +69,7 @@ router.get('/', async (req, res, next) => {
     if (location === null || undefined) {
       const err = new Error('The location was not found');
       err.status = 404;
-      return Promise.reject(err);
+      return next(err);
     }
 
     lat = location.latitude;
